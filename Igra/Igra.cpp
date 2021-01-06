@@ -62,6 +62,11 @@ int main()
 	cout << "Now, press 1 if you want to play against your computer or press 2 if you want to play against another player." << endl;
 	char opponent;
 	cin >> opponent;
+	while (opponent != '1' && opponent != '2')
+	{
+		cout << "Please, enter only 1 or 2." << endl;
+		cin >> opponent;
+	}
 	if (opponent == '1')
 	{
 		cout << "Hello human! Aw, you don't have friends to play with? Haha Im just kidding(seriously, don't get upset)!" << endl;
@@ -116,7 +121,6 @@ int main()
 			if (combinations[i] > 7 || combinations[i] < 0)
 			{
 				cout << "Number " << combinations[i] << " is not in the range of 0 and 7" << endl;
-				//a
 				cout << "Please enter a new number that is in the range." << endl;
 			}
 			else
