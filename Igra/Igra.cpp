@@ -22,10 +22,10 @@ vector<int> generateDistinctRandomNumbersInRange(int desiredSize, int start, int
 	set<int>::iterator it;
 	set<int> numbers;
 	vector<int> result;
-	while (numbers.size()<desiredSize)
+	while (numbers.size() < desiredSize)
 	{
 		int number = generateRandomNumberInRange(start, end);
-		if (numbers.find(number)==numbers.end())
+		if (numbers.find(number) == numbers.end())
 		{
 			numbers.insert(number);
 			result.push_back(number);
@@ -43,20 +43,22 @@ int main()
 	cout << "Press Y if you want the instructions or press N if you don't." << endl;
 	char instructions;
 	cin >> instructions;
+	while (instructions != 'Y' && instructions != 'N')
+	{
+		cout << "Please enter Y or N, nothing else." << endl;
+		cin >> instructions;
+	}
 	if (instructions == 'Y')
 	{
+		system("cls");
 		cout << "The Germans (A player or the computer) place a combination of 4 random numbers in the range between 0 and 7, indicating the coordinates of their battleship." << endl;
 		cout << "The code breaker should guess the number within 13 tries. The codebreaker places their guesses. If the german is an another player he should give a feedback whether just a number is guessed or a number and is on a correct place." << endl;
 	}
-	if (instructions == 'N')
+	else if (instructions == 'N')
 	{
 		cout << "Okay, I guess you're just too smart." << endl;
 	}
-	else
-	{
-		cout << "Please enter Y or N, nothing else." << endl;
-		//a
-	}
+
 	cout << "Now, press 1 if you want to play against your computer or press 2 if you want to play against another player." << endl;
 	char opponent;
 	cin >> opponent;
@@ -66,7 +68,7 @@ int main()
 		cout << "You will have to complete two tasks. Let's start with the first one." << endl;
 		cout << "I have genereted all eight numbers from 0 to 7 for you. All you have to do is guess four of the numbers and their positions." << endl;
 		cout << "Let's begin, take a guess." << endl;
-		vector<int> numbers = generateDistinctRandomNumbersInRange(8, 0, 7);
+		/*vector<int> numbers = generateDistinctRandomNumbersInRange(8, 0, 7);
 		int tries = 0;
 		bool gameOver = false;
 		int guessedNumbers = 0;
@@ -97,7 +99,7 @@ int main()
 		if (!gameOver)
 		{
 			cout << "Congratulations player!!! You saved the world!";
-		}
+		}*/
 	}
 	else
 	{
@@ -123,6 +125,5 @@ int main()
 			}
 		}
 	}
-
 }
 
