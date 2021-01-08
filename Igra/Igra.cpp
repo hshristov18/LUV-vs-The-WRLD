@@ -34,6 +34,78 @@ vector<int> generateDistinctRandomNumbersInRange(int desiredSize, int start, int
 	return result;
 }
 
+int guessedNumbers(vector <int> guess, vector <int> originalNumbers)
+{
+	int result = 0;
+	for (int i = 0; i < guess.size(); i++)
+	{
+		if (find(originalNumbers.begin(), originalNumbers.end(), guess[i]) != originalNumbers.end())
+		{
+			result++;
+		}
+	}
+	return result;
+}
+
+int guessedNumbersAndPositions(vector <int> guess, vector <int> originalNumbers)
+{
+	int result = 0;
+	for (int i = 0; i < guess.size(); i++)
+	{
+		if (guess[i]==originalNumbers[i])
+		{
+			result++;
+		}
+	}
+	return result;
+}
+
+void playTaskOne()
+{
+	vector<int> numbers = generateDistinctRandomNumbersInRange(8, 0, 7);
+	int tries = 0;
+	while (tries < 13)
+	{
+		vector <int> playerGuess(8);
+		cout << "Enter 8 numbers for your guess." << endl;
+		for (int i = 0; i < 8; i++)
+		{
+			cin >> playerGuess[i];
+		}
+		int guessed = guessedNumbers(playerGuess, numbers);
+		int guessedPositions = guessedNumbersAndPositions(playerGuess, numbers);
+		cout << "You have guessed - " << guessed << " numbers." << endl;
+		cout << "You have guessed - " << guessedPositions << " numbers and their positions." << endl;
+		if (guessedPositions >= 4)
+		{
+			cout << "Congratulations! You win!" << endl;
+			break;
+		}
+		tries++;
+	}
+	if (tries>=13)
+	{
+		cout << "Game over! You lost." << endl;
+		cout << "Do you want to play again?" << endl;
+		cout << "Enter Y if you want or No if you don't." << endl;
+		char instructions;
+		cin >> instructions;
+		while (instructions != 'Y' && instructions != 'N')
+		{
+			cout << "Please enter Y or N, nothing else." << endl;
+			cin >> instructions;
+		}
+		if (instructions == 'Y')
+		{
+			playTaskOne();
+		}
+		else if (instructions == 'N')
+		{
+			cout << "Alright, your adventure ends here." << endl;
+		}
+	}
+}
+
 int main()
 {
 	initialize();
@@ -74,45 +146,17 @@ int main()
 		cout << "You will have to complete two tasks. Let's start with the first one." << endl;
 		cout << "I have genereted all eight numbers from 0 to 7 for you. All you have to do is guess four of the numbers and their positions." << endl;
 		cout << "Let's begin, take a guess." << endl;
-		/*vector<int> numbers = generateDistinctRandomNumbersInRange(8, 0, 7);
-		int tries = 0;
-		bool gameOver = false;
-		int guessedNumbers = 0;
-		while (!gameOver)
-		{
-			int guessNumber, guessPosition;
-			cout << "Enter a number and a position." << endl;
-			cin >> guessNumber >> guessPosition;
-			vector <int>::iterator numberIt = find(numbers.begin,numbers.end,guessNumber);
-			if (numberIt!=numbers.end())
-			{
-				guessedNumbers++;
-			}
-			bool foundNumber=numbers.
-		}
-		while (number != randomNumber)
-		{
-			cout << "You did not guess any numbers, try again!" << endl;
-			cin >> number;
-			tries++;
-			if (tries == 13)
-			{
-				cout << "Game over! You failed to save the world..:(" << endl;
-				gameOver = true;
-				break;
-			}
-		}
-		if (!gameOver)
-		{
-			cout << "Congratulations player!!! You saved the world!";
-		}*/
+		playTaskOne();
+		system("cls");
+		cout << "Now its time to move to task 2." << endl;
+
 	}
 	else
 	{
 		cout << "Sure!" << endl;
-		int combinations[4];
-		int size = 4;
-		cout << "Make a combination of 4 random numbers in the rangeo of 0 and 7." << endl;
+		int combinations[8];
+		int size = 8;
+		cout << "Player 1, make a combination of 4 random numbers in the rangeo of 0 and 7." << endl;
 		for (int i = 0; i < size; i++)
 		{
 			cin >> combinations[i];
