@@ -34,6 +34,17 @@ vector<int> generateDistinctRandomNumbersInRange(int desiredSize, int start, int
 	return result;
 }
 
+vector<int> generateRandomNumbersInRange(int desiredSize, int start, int end)
+{
+	vector<int> result;
+	while (result.size() < desiredSize)
+	{
+		int number = generateRandomNumberInRange(start, end);
+		result.push_back(number);
+	}
+	return result;
+}
+
 int guessedNumbers(vector <int> guess, vector <int> originalNumbers)
 {
 	int result = 0;
@@ -60,9 +71,11 @@ int guessedNumbersAndPositions(vector <int> guess, vector <int> originalNumbers)
 	return result;
 }
 
-void playTaskOne()
+void playTask(int taskNumber)
 {
-	vector<int> numbers = generateDistinctRandomNumbersInRange(8, 0, 7);
+	cout << "You're playing task " << taskNumber << endl;
+	vector<int> numbers = (taskNumber == 1) ? generateDistinctRandomNumbersInRange(8, 0, 7) : 
+		generateRandomNumbersInRange(8, 0, 7);
 	int tries = 0;
 	while (tries < 13)
 	{
@@ -79,6 +92,7 @@ void playTaskOne()
 		if (guessedPositions >= 4)
 		{
 			cout << "Congratulations! You win!" << endl;
+			playTask(2);
 			break;
 		}
 		tries++;
@@ -97,13 +111,18 @@ void playTaskOne()
 		}
 		if (instructions == 'Y')
 		{
-			playTaskOne();
+			playTask(1);
 		}
 		else if (instructions == 'N')
 		{
 			cout << "Alright, your adventure ends here." << endl;
 		}
 	}
+}
+
+void playTaskTwo()
+{
+
 }
 
 int main()
@@ -131,7 +150,7 @@ int main()
 		cout << "Okay, I guess you're just too smart." << endl;
 	}
 
-	cout << "Now, press 1 if you want to play against your computer or press 2 if you want to play against another player." << endl;
+	cout << "Now, press 1 if you want to play against another player or press 2 if you want to play against your computer." << endl;
 	char opponent;
 	cin >> opponent;
 	while (opponent != '1' && opponent != '2')
@@ -140,23 +159,21 @@ int main()
 		cin >> opponent;
 	}
 	system("cls");
-	if (opponent == '1')
+	if (opponent == '2')
 	{
 		cout << "Hello human! Aw, you don't have friends to play with? Haha Im just kidding(seriously, don't get upset)!" << endl;
 		cout << "You will have to complete two tasks. Let's start with the first one." << endl;
 		cout << "I have genereted all eight numbers from 0 to 7 for you. All you have to do is guess four of the numbers and their positions." << endl;
-		cout << "Let's begin, take a guess." << endl;
-		playTaskOne();
+		playTask(1);
 		system("cls");
 		cout << "Now its time to move to task 2." << endl;
-
 	}
 	else
 	{
 		cout << "Sure!" << endl;
 		int combinations[8];
 		int size = 8;
-		cout << "Player 1, make a combination of 4 random numbers in the rangeo of 0 and 7." << endl;
+		cout << "Player 1, make a combination of all 8 (don't repeat the numbers) numbers in the rangeo of 0 and 7 (they dont have to be in order)." << endl;
 		for (int i = 0; i < size; i++)
 		{
 			cin >> combinations[i];
