@@ -48,9 +48,10 @@ vector<int> generateRandomNumbersInRange(int desiredSize, int start, int end)
 int guessedNumbers(vector <int> guess, vector <int> originalNumbers)
 {
 	int result = 0;
-	for (int i = 0; i < guess.size(); i++)
+	set <int> guessSet(guess.begin(), guess.end());
+	for (int x : guessSet)
 	{
-		if (find(originalNumbers.begin(), originalNumbers.end(), guess[i]) != originalNumbers.end())
+		if (find(originalNumbers.begin(), originalNumbers.end(), x) != originalNumbers.end())
 		{
 			result++;
 		}
@@ -73,6 +74,10 @@ int guessedNumbersAndPositions(vector <int> guess, vector <int> originalNumbers)
 
 void playTask(int taskNumber)
 {
+	if (taskNumber>2)
+	{
+		return; //here we could add more tasks/levels in future.
+	}
 	cout << "You're playing task " << taskNumber << endl;
 	vector<int> numbers = (taskNumber == 1) ? generateDistinctRandomNumbersInRange(8, 0, 7) : 
 		generateRandomNumbersInRange(8, 0, 7);
@@ -92,7 +97,7 @@ void playTask(int taskNumber)
 		if (guessedPositions >= 4)
 		{
 			cout << "Congratulations! You win!" << endl;
-			playTask(2);
+			playTask(taskNumber+1);
 			break;
 		}
 		tries++;
@@ -118,11 +123,6 @@ void playTask(int taskNumber)
 			cout << "Alright, your adventure ends here." << endl;
 		}
 	}
-}
-
-void playTaskTwo()
-{
-
 }
 
 int main()
