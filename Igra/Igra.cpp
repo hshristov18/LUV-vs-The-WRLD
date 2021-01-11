@@ -72,15 +72,55 @@ int guessedNumbersAndPositions(vector <int> guess, vector <int> originalNumbers)
 	return result;
 }
 
-void playTask(int taskNumber)
+vector <int> enterPlayerNumbers(int playerNumber, int taskNumber ,bool allowRepeating = true)
+{
+	vector <int> playerNumbers(8);
+
+	if (allowRepeating)
+	{
+		cout << "You're playing task " << taskNumber << endl;
+		cout << "Player " << playerNumber << " , make a combination of all 8 (don't repeat the numbers) numbers in the rangeo of 0 and 7 (they dont have to be in order)." << endl;
+	}
+	else
+	{
+		cout << "You're playing task " << taskNumber << endl;
+		cout << "Player " << playerNumber << " , make a combination of 8 numbers in the rangeo of 0 and 7 (they dont have to be in order)." << endl;
+	}
+	for (int i = 0; i < playerNumbers.size(); i++)
+	{
+		cin >> playerNumbers[i];
+		while (playerNumbers[i] > 7 || playerNumbers[i] < 0)
+		{
+			cout << "Number " << playerNumbers[i] << " is not in the range of 0 and 7" << endl;
+			cout << "Please enter a new number that is in the range." << endl;
+			cin >> playerNumbers[i];
+		}
+		if (playerNumbers[i] <= 7 && playerNumbers[i] >= 0)
+		{
+			cout << "Nice, number " << playerNumbers[i] << " is in the range!" << endl;
+		}
+	}
+	return playerNumbers;
+}
+
+void playTask(int taskNumber, bool isBot = true, vector<int> playerNumbers = vector<int>())
 {
 	if (taskNumber>2)
 	{
 		return; //here we could add more tasks/levels in future.
 	}
-	cout << "You're playing task " << taskNumber << endl;
-	vector<int> numbers = (taskNumber == 1) ? generateDistinctRandomNumbersInRange(8, 0, 7) : 
-		generateRandomNumbersInRange(8, 0, 7);
+	
+	vector <int> numbers;
+	if (isBot)
+	{
+		cout << "You're playing task " << taskNumber << endl;
+		numbers = (taskNumber == 1) ? generateDistinctRandomNumbersInRange(8, 0, 7) :
+			generateRandomNumbersInRange(8, 0, 7);
+	}
+	else
+	{
+		numbers = playerNumbers;
+	}
 	int tries = 0;
 	while (tries < 13)
 	{
@@ -96,8 +136,21 @@ void playTask(int taskNumber)
 		cout << "You have guessed - " << guessedPositions << " numbers and their positions." << endl;
 		if (guessedPositions >= 4)
 		{
-			cout << "Congratulations! You win!" << endl;
-			playTask(taskNumber+1);
+			if (taskNumber == 2)
+			{
+				cout << "Congratulations! You win!" << endl;
+			}
+			if (isBot)
+			{
+				playTask(taskNumber + 1);
+			}
+			else
+			{
+				if (taskNumber+1<=2)
+				{
+					playTask(taskNumber + 1, false, enterPlayerNumbers(1, taskNumber + 1, false));
+				}
+			}
 			break;
 		}
 		tries++;
@@ -170,27 +223,10 @@ int main()
 	}
 	else
 	{
-		cout << "Sure!" << endl;
-		int combinations[8];
-		int size = 8;
-		cout << "Player 1, make a combination of all 8 (don't repeat the numbers) numbers in the rangeo of 0 and 7 (they dont have to be in order)." << endl;
-		for (int i = 0; i < size; i++)
-		{
-			cin >> combinations[i];
-		}
-		for (int i = 0; i < size; i++)
-		{
-			while (combinations[i] > 7 || combinations[i] < 0)
-			{
-				cout << "Number " << combinations[i] << " is not in the range of 0 and 7" << endl;
-				cout << "Please enter a new number that is in the range." << endl;
-				cin >> combinations[i];
-			}
-			if (combinations[i] < 7 || combinations[i] > 0)
-			{
-				cout << "Nice, number " << combinations[i] << " is in the range!" << endl;
-			}
-		}
+		vector <int> playerOneNumbers = enterPlayerNumbers(1,1);
+		system("PAUSE");
+		system("cls");
+		playTask(1,false,playerOneNumbers);
 	}
 }
 
