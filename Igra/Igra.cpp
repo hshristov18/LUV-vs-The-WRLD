@@ -209,8 +209,8 @@ int main()
 		cout << "The Germans (A player or the computer) place a combination of 4 random numbers in the range between 0 and 7, indicating the coordinates of their battleship." << endl;
 		cout << "The code breaker should guess the number within 13 tries. The codebreaker places their guesses. If the german is an another player he should give a feedback whether just a number is guessed or a number and is on a correct place." << endl;
 		cout << "There are two tasks." << endl;
-		cout << "In the first task the numbers that you have to guess won't repeat" << endl;
-		cout << "In the second task the numbers that you have to guess might repeat" << endl;
+		cout << "In the first task the numbers that you have to guess won't repeat." << endl;
+		cout << "In the second task the numbers that you have to guess might repeat." << endl;
 	}
 	else if (instructions == 'N')
 	{
