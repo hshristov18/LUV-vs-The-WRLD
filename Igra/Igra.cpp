@@ -79,6 +79,7 @@ vector <int> enterPlayerNumbers(int playerNumber, int taskNumber ,bool allowRepe
 	if (allowRepeating)
 	{
 		cout << "You're playing task " << taskNumber << endl;
+		cout << "Please player " << playerNumber + 1 << " don't look at the screen while player 1 is entering the numbers" << endl;
 		cout << "Player " << playerNumber << " , make a combination of all 8 (don't repeat the numbers) numbers in the rangeo of 0 and 7 (they dont have to be in order)." << endl;
 	}
 	else
@@ -109,7 +110,8 @@ void playTask(int taskNumber, bool isBot = true, vector<int> playerNumbers = vec
 	{
 		return; //here we could add more tasks/levels in future.
 	}
-	
+	system("PAUSE");
+	system("cls");
 	vector <int> numbers;
 	if (isBot)
 	{
@@ -122,8 +124,13 @@ void playTask(int taskNumber, bool isBot = true, vector<int> playerNumbers = vec
 		numbers = playerNumbers;
 	}
 	int tries = 0;
+	
 	while (tries < 13)
 	{
+		if (!isBot)
+		{
+			cout << "Player 2 its your turn now." << endl;
+		}
 		vector <int> playerGuess(8);
 		cout << "Enter 8 numbers for your guess." << endl;
 		for (int i = 0; i < 8; i++)
@@ -136,9 +143,13 @@ void playTask(int taskNumber, bool isBot = true, vector<int> playerNumbers = vec
 		cout << "You have guessed - " << guessedPositions << " numbers and their positions." << endl;
 		if (guessedPositions >= 4)
 		{
+			if (taskNumber==1)
+			{
+				cout << "Well done! You beat task 1." << endl;
+			}
 			if (taskNumber == 2)
 			{
-				cout << "Congratulations! You win!" << endl;
+				cout << "Congratulations player! You beat the game!!!" << endl;
 			}
 			if (isBot)
 			{
@@ -157,7 +168,7 @@ void playTask(int taskNumber, bool isBot = true, vector<int> playerNumbers = vec
 	}
 	if (tries>=13)
 	{
-		cout << "Game over! You lost." << endl;
+		cout << "Game over! You lost..." << endl;
 		cout << "Do you want to play again?" << endl;
 		cout << "Enter Y if you want or No if you don't." << endl;
 		char instructions;
@@ -183,7 +194,7 @@ int main()
 	initialize();
 	cout << "----------------------- German battleships -----------------------" << endl;
 	cout << "Hello player! You're about to play our epic (not really) game, German battleships." << endl;
-	cout << "I suggest you to read the instructions. its up to you though.";
+	cout << "I suggest you to read the instructions. Its up to you though." << endl;
 	cout << "Press Y if you want the instructions or press N if you don't." << endl;
 	char instructions;
 	cin >> instructions;
@@ -197,12 +208,16 @@ int main()
 		system("cls");
 		cout << "The Germans (A player or the computer) place a combination of 4 random numbers in the range between 0 and 7, indicating the coordinates of their battleship." << endl;
 		cout << "The code breaker should guess the number within 13 tries. The codebreaker places their guesses. If the german is an another player he should give a feedback whether just a number is guessed or a number and is on a correct place." << endl;
+		cout << "There are two tasks." << endl;
+		cout << "In the first task the numbers that you have to guess won't repeat" << endl;
+		cout << "In the second task the numbers that you have to guess might repeat" << endl;
 	}
 	else if (instructions == 'N')
 	{
 		cout << "Okay, I guess you're just too smart." << endl;
 	}
-
+	system("PAUSE");
+	system("cls");
 	cout << "Now, press 1 if you want to play against another player or press 2 if you want to play against your computer." << endl;
 	char opponent;
 	cin >> opponent;
@@ -219,7 +234,6 @@ int main()
 		cout << "I have genereted all eight numbers from 0 to 7 for you. All you have to do is guess four of the numbers and their positions." << endl;
 		playTask(1);
 		system("cls");
-		cout << "Now its time to move to task 2." << endl;
 	}
 	else
 	{
